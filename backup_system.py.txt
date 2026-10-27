@@ -1,0 +1,36 @@
+import shutil
+import os
+from datetime import datetime
+import logging
+
+# Clinic IT Toolkit - Automated Backup System
+# Author: Kingsley Effah Agyemang
+
+BACKUP_SOURCE = "C:/ClinicData"
+BACKUP_DEST = "E:/Clinic_Backup"
+LOG_FILE = "backup_log.txt"
+
+logging.basicConfig(filename=LOG_FILE, level=logging.INFO)
+
+def create_backup():
+    try:
+        today = datetime.now().strftime("%Y-%m-%d")
+        dest_folder = os.path.join(BACKUP_DEST, f"backup_{today}")
+        
+        if not os.path.exists(dest_folder):
+            os.makedirs(dest_folder)
+            
+        shutil.copytree(BACKUP_SOURCE, dest_folder, dirs_exist_ok=True)
+        
+        msg = f"[{today}] Backup SUCCESS: {BACKUP_SOURCE} -> {dest_folder}"
+        print(msg)
+        logging.info(msg)
+        return True
+    except Exception as e:
+        msg = f"Backup FAILED: {str(e)}"
+        print(msg)
+        logging.error(msg)
+        return False
+
+if __name__ == "__main__":
+    create_backup()

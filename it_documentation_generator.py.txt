@@ -1,0 +1,35 @@
+# Generates IT documentation for knowledge sharing
+from datetime import datetime
+
+def generate_doc():
+    doc = f"""
+    CLINIC IT SYSTEM DOCUMENTATION
+    Generated: {datetime.now().strftime('%Y-%m-%d')}
+    By: Kingsley Effah Agyemang - IT Officer
+
+    1. NETWORK INFRASTRUCTURE
+    - Router: TP-Link Archer C7 (192.168.1.1)
+    - Switch: 24-port Gigabit
+    - Firewall: Enabled, Rules for Clinic LAN
+    - VPN: Configured for remote access to NHIA
+
+    2. BACKUP PROCEDURE
+    - Daily automated backup at 6PM to external drive
+    - Script: backup_system.py
+    - Logs: backup_log.txt
+
+    3. SECURITY
+    - Antivirus: Windows Defender + Malwarebytes, daily scan
+    - Access Control: Role-based, patient data restricted
+    - Password Policy: 90-day expiry
+
+    4. TROUBLESHOOTING STEPS
+    - Desktops/Printers: Check power, ping, reinstall driver
+    - Network Down: Restart router, check switch, ping gateway
+    """
+    with open("IT_Documentation.txt", "w") as f:
+        f.write(doc)
+    print("IT_Documentation.txt generated!")
+
+if __name__ == "__main__":
+    generate_doc()

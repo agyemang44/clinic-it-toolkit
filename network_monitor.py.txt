@@ -1,0 +1,27 @@
+import subprocess
+import platform
+from datetime import datetime
+
+# Checks connectivity for routers, switches, servers, printers
+DEVICES = {
+    "Main Router": "192.168.1.1",
+    "File Server": "192.168.1.10",
+    "Printer": "192.168.1.20",
+    "NHIA VPN": "10.0.0.1"
+}
+
+def ping_device(ip):
+    param = "-n" if platform.system().lower() == "windows" else "-c"
+    command = ["ping", param, "1", ip]
+    result = subprocess.run(command, stdout=subprocess.DEVNULL)
+    return result.returncode == 0
+
+def monitor_network():
+    print(f"Network Check - {datetime.now()}")
+    print("-" * 40)
+    for name, ip in DEVICES.items():
+        status = "UP" if ping_device(ip) else "DOWN - ALERT!"
+        print(f"{name} ({ip}): {status}")
+
+if __name__ == "__main__":
+    monitor_network()
